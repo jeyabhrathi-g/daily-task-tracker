@@ -1,0 +1,42 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f0ff;
+}
+
+.app {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-right: 8px;
+}
+
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #7c3aed;
+  color: white;
+  cursor: pointer;
+}
+
+li {
+  margin: 12px 0;
+  text-align: left;
+}
+
+.delete-btn {
+  padding: 5px 8px;
+  font-size: 11px;
+  margin-left: 8px;
+}
