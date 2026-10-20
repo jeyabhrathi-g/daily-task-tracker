@@ -5,20 +5,17 @@ function App() {
   const [task, setTask] = useState("")
   const [todos, setTodos] = useState([])
   const [deferredPrompt, setDeferredPrompt] = useState(null)
-  const [isInstalled, setIsInstalled] = useState(false)
-  const [showInstructions, setShowInstructions] = useState(false)
-
-  useEffect(() => {
-    // Check if the app is already installed / running in standalone mode
-    const isStandalone =
+  const [isInstalled, setIsInstalled] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return (
       window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone === true ||
       document.referrer.includes('android-app://')
+    )
+  })
+  const [showInstructions, setShowInstructions] = useState(false)
 
-    if (isStandalone) {
-      setIsInstalled(true)
-    }
-
+  useEffect(() => {
     // Capture beforeinstallprompt event if supported by the browser
     const handleBeforeInstallPrompt = (e) => {
       e.preventDefault()
@@ -68,6 +65,40 @@ function App() {
 
       <p>My first React application</p>
 
+      <input
+        type="text"
+        placeholder="Enter your task"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+      />
+
+      <button
+        onClick={() => {
+          if (task.trim() !== '') {
+            setTodos([...todos, task])
+            setTask('')
+          }
+        }}
+      >
+        Add Todo
+      </button>
+
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>
+            {todo}
+            <button
+              className="delete-btn"
+              onClick={() => {
+                setTodos(todos.filter((_, i) => i !== index))
+              }}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+
       {/* PWA Install Button & Instructions */}
       <div className="install-container">
         <button
@@ -114,40 +145,6 @@ function App() {
           </div>
         )}
       </div>
-
-      <input
-        type="text"
-        placeholder="Enter your task"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-      />
-
-      <button
-        onClick={() => {
-          if (task.trim() !== '') {
-            setTodos([...todos, task])
-            setTask('')
-          }
-        }}
-      >
-        Add Todo
-      </button>
-
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            {todo}
-            <button
-              className="delete-btn"
-              onClick={() => {
-                setTodos(todos.filter((_, i) => i !== index))
-              }}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
   )
 }

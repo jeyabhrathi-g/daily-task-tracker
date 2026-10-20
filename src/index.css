@@ -43,11 +43,13 @@ li {
 
 /* PWA Install Button & Instructions Styling */
 .install-container {
-  margin: 15px 0 25px 0;
+  margin: 32px auto 8px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 8px;
+  width: 100%;
 }
 
 .install-btn {
